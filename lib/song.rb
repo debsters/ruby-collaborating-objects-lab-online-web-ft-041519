@@ -1,7 +1,7 @@
-require 'pry'
 class Song
-<<<<<<< HEAD
-  attr_accessor :name, :artist
+
+  attr_accessor :name, :artist, :genre
+
   @@all = []
 
   def initialize(name)
@@ -9,25 +9,12 @@ class Song
     @@all << self
   end
 
-  def self.new_by_filename(file_name)
-    artist_name = file_name.split(" - ")[0]
-    song_name = file_name.split(" - ")[1]
-    song = Song.new(song_name)
-    song.artist = Artist.find_or_create_by_name(artist_name)
-    song.artist.add_song(song)
-    song
+  def artist_name
+    self.artist == nil ? nil : self.artist.name
   end
 
   def self.all
-    @@all
+   @@all
   end
-=======
-  attr_accessor :name
-
-  def initialize(name)
-    @name = name
-  end
-
->>>>>>> 7903a3779b4fad9d0a96440acb060bb269dd3686
 
 end
