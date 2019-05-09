@@ -1,32 +1,36 @@
+require 'pry'
 class Artist
-  attr_accessor :name
-
-  @@song_count = []
+  attr_accessor :name, :songs
+  @@all = []
 
   def initialize(name)
     @name = name
     @songs = []
+    self.save
   end
 
   def add_song(song)
     @songs << song
-    song.artist = self
-    @@song_count << song
   end
 
-  def add_song_by_name(name)
-    song = Song.new(name)
-    @songs << song
-    song.artist = self
-    @@song_count << song
+  def self.find_or_create_by_name(name)
+    artist = self.all.find { |artist| artist.name == name}
+      if !artist
+        artist = self.new(name)
+    end
+    artist
   end
 
-  def songs
-    @songs
+  def print_songs
+    @songs.each {|song| puts song.name}
   end
 
-  def self.song_count
-    @@song_count.size
+  def save
+    @@all << self
+  end
+
+  def self.all
+    @@all
   end
 
 end
